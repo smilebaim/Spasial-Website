@@ -11,6 +11,28 @@ import {
 } from "@/lib/data/dummy";
 import "leaflet/dist/leaflet.css";
 
+export type MapTileStyle = "street" | "satellite";
+
+const TILE_CONFIG: Record<
+  MapTileStyle,
+  { url: string; attribution: string; labels?: { url: string; attribution: string } }
+> = {
+  street: {
+    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  },
+  satellite: {
+    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    attribution:
+      'Tiles &copy; <a href="https://www.esri.com/">Esri</a> — Source: Esri, Maxar, Earthstar Geographics',
+    labels: {
+      url: "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",
+      attribution: '&copy; <a href="https://www.esri.com/">Esri</a>',
+    },
+  },
+};
+
 function createIcon(color: string) {
   return L.divIcon({
     className: "custom-marker",
@@ -44,6 +66,7 @@ interface LeafletMapProps {
   showLegend?: boolean;
   legendTitle?: string;
   rounded?: boolean;
+  tileStyle?: MapTileStyle;
 }
 
 export function LeafletMap({
@@ -56,7 +79,9 @@ export function LeafletMap({
   showLegend = true,
   legendTitle = "Tingkat Dampak",
   rounded = true,
+  tileStyle = "street",
 }: LeafletMapProps) {
+  const tiles = TILE_CONFIG[tileStyle];
   useEffect(() => {
     delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
     L.Icon.Default.mergeOptions({
@@ -76,10 +101,14 @@ export function LeafletMap({
         className={`h-full w-full z-0 ${rounded ? "rounded-lg" : ""}`}
         scrollWheelZoom
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <TileLayer attribution={tiles.attribution} url={tiles.url} />
+        {tiles.labels && (
+          <TileLayer
+            attribution={tiles.labels.attribution}
+            url={tiles.labels.url}
+            opacity={0.85}
+          />
+        )}
         <MapResizer />
         {markers.map((m) => (
           <Marker key={m.id} position={[m.lat, m.lng]} icon={createIcon(getMarkerColor(m))}>

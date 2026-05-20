@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import type { MapMarker } from "@/lib/data/dummy";
+import type { MapTileStyle } from "./leaflet-map";
 import { MapPin } from "lucide-react";
 
 const LeafletMap = dynamic(() => import("./leaflet-map").then((m) => m.LeafletMap), {
@@ -26,6 +27,7 @@ interface MapLoaderProps {
   showLegend?: boolean;
   legendTitle?: string;
   rounded?: boolean;
+  tileStyle?: MapTileStyle;
 }
 
 export function MapLoader(props: MapLoaderProps) {
