@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dashboard Monitoring Hidrometeorologi",
-  description: "Sistem Informasi Spasial Pemantauan Bencana Hidrometeorologi — Spatial Society",
+  title: {
+    default: "Digital Spasial Indonesia",
+    template: "%s | Digital Spasial",
+  },
+  description:
+    "Sistem Informasi Geospasial Nasional — Pemantauan Spasial dan Bencana Hidrometeorologi — Spatial Society",
 };
 
 export default function RootLayout({

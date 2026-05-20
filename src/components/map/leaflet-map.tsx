@@ -3,8 +3,12 @@
 import { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
-import type { MapMarker } from "@/lib/data/dummy";
-import { getMarkerColor, MAP_CENTER, MAP_DEFAULT_ZOOM } from "@/lib/data/dummy";
+import {
+  getMarkerColor,
+  MAP_CENTER,
+  MAP_DEFAULT_ZOOM,
+  type MapMarker,
+} from "@/lib/data/dummy";
 import "leaflet/dist/leaflet.css";
 
 function createIcon(color: string) {
@@ -31,19 +35,27 @@ function MapResizer() {
 }
 
 interface LeafletMapProps {
-  markers: MapMarker[];
+  markers?: MapMarker[];
   className?: string;
+  center?: { lat: number; lng: number };
   zoom?: number;
+  minZoom?: number;
+  maxZoom?: number;
   showLegend?: boolean;
   legendTitle?: string;
+  rounded?: boolean;
 }
 
 export function LeafletMap({
-  markers,
+  markers = [],
   className = "h-full min-h-[400px] w-full",
+  center = MAP_CENTER,
   zoom = MAP_DEFAULT_ZOOM,
+  minZoom,
+  maxZoom,
   showLegend = true,
   legendTitle = "Tingkat Dampak",
+  rounded = true,
 }: LeafletMapProps) {
   useEffect(() => {
     delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
@@ -57,9 +69,11 @@ export function LeafletMap({
   return (
     <div className={`relative ${className}`}>
       <MapContainer
-        center={[MAP_CENTER.lat, MAP_CENTER.lng]}
+        center={[center.lat, center.lng]}
         zoom={zoom}
-        className="h-full w-full rounded-lg z-0"
+        minZoom={minZoom}
+        maxZoom={maxZoom}
+        className={`h-full w-full z-0 ${rounded ? "rounded-lg" : ""}`}
         scrollWheelZoom
       >
         <TileLayer

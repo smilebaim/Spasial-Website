@@ -140,3 +140,12 @@
   background: transparent !important;
   border: none !important;
 }
+
+/* Full-screen home map — hide default leaflet attribution overlap with dock */
+.home-map-full .leaflet-control-attribution {
+  margin-bottom: 5.5rem;
+  font-size: 9px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  border-radius: 6px 0 0 0;
+}

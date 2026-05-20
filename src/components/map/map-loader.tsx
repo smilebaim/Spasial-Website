@@ -17,11 +17,15 @@ const LeafletMap = dynamic(() => import("./leaflet-map").then((m) => m.LeafletMa
 });
 
 interface MapLoaderProps {
-  markers: MapMarker[];
+  markers?: MapMarker[];
   className?: string;
+  center?: { lat: number; lng: number };
   zoom?: number;
+  minZoom?: number;
+  maxZoom?: number;
   showLegend?: boolean;
   legendTitle?: string;
+  rounded?: boolean;
 }
 
 export function MapLoader(props: MapLoaderProps) {

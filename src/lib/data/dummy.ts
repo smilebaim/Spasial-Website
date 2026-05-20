@@ -88,6 +88,12 @@ const DAMPAK_COLOR: Record<DampakLevel, string> = {
 export const MAP_CENTER = { lat: -6.82, lng: 110.85 };
 export const MAP_DEFAULT_ZOOM = 9;
 
+/** Pusat dan zoom untuk tampilan peta seluruh Indonesia */
+export const INDONESIA_MAP_CENTER = { lat: -2.5, lng: 118 };
+export const INDONESIA_MAP_ZOOM = 5;
+export const INDONESIA_MAP_MIN_ZOOM = 4;
+export const INDONESIA_MAP_MAX_ZOOM = 12;
+
 export const dashboardData: DashboardData = {
   updatedAt: "20 Mei 2026, 14:32",
   stats: {
