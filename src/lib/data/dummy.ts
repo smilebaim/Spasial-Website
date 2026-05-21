@@ -87,17 +87,32 @@ export interface DashboardData {
   distribusiBantuan: { n: string; v: number }[];
 }
 
+/** Titik tengah Desa Remau Baku Tuo — dipakai di semua peta */
+export const REMAU_BAKU_TUO_CENTER = {
+  lat: -1.230550860605375,
+  lng: 104.37625823808824,
+};
+
+const COORD_OFFSET = {
+  lat: REMAU_BAKU_TUO_CENTER.lat - -1.485,
+  lng: REMAU_BAKU_TUO_CENTER.lng - 104.855,
+};
+
+function shiftCoord(lat: number, lng: number): { lat: number; lng: number } {
+  return { lat: lat + COORD_OFFSET.lat, lng: lng + COORD_OFFSET.lng };
+}
+
 /** Koordinat desa di Kecamatan Sadu, Kab. Tanjung Jabung Timur, Jambi */
 const DESA_COORDS: Record<string, { lat: number; lng: number }> = {
-  "Remau Baku Tuo": { lat: -1.485, lng: 104.855 },
-  "Sungai Lokan": { lat: -1.472, lng: 104.84 },
-  "Sungai Cemara": { lat: -1.498, lng: 104.868 },
-  "Labuhan Pering": { lat: -1.465, lng: 104.875 },
-  "Air Hitam Laut": { lat: -1.505, lng: 104.83 },
-  "Sungai Benuh": { lat: -1.478, lng: 104.862 },
-  "Sungai Itik": { lat: -1.492, lng: 104.848 },
-  "Sungai Jambat": { lat: -1.468, lng: 104.852 },
-  "Sungai Sayang": { lat: -1.501, lng: 104.845 },
+  "Remau Baku Tuo": REMAU_BAKU_TUO_CENTER,
+  "Sungai Lokan": shiftCoord(-1.472, 104.84),
+  "Sungai Cemara": shiftCoord(-1.498, 104.868),
+  "Labuhan Pering": shiftCoord(-1.465, 104.875),
+  "Air Hitam Laut": shiftCoord(-1.505, 104.83),
+  "Sungai Benuh": shiftCoord(-1.478, 104.862),
+  "Sungai Itik": shiftCoord(-1.492, 104.848),
+  "Sungai Jambat": shiftCoord(-1.468, 104.852),
+  "Sungai Sayang": shiftCoord(-1.501, 104.845),
 };
 
 const DAMPAK_COLOR: Record<DampakLevel, string> = {
@@ -108,11 +123,11 @@ const DAMPAK_COLOR: Record<DampakLevel, string> = {
 };
 
 /** Pusat peta — Desa Remau Baku Tuo */
-export const MAP_CENTER = { lat: -1.485, lng: 104.855 };
+export const MAP_CENTER = REMAU_BAKU_TUO_CENTER;
 export const MAP_DEFAULT_ZOOM = 13;
 
 /** Tampilan peta halaman utama — wilayah Kec. Sadu */
-export const INDONESIA_MAP_CENTER = { lat: -1.485, lng: 104.855 };
+export const INDONESIA_MAP_CENTER = REMAU_BAKU_TUO_CENTER;
 export const INDONESIA_MAP_ZOOM = 12;
 export const INDONESIA_MAP_MIN_ZOOM = 10;
 export const INDONESIA_MAP_MAX_ZOOM = 16;
@@ -327,40 +342,35 @@ const faskesMarkers: MapMarker[] = [
     name: "Puskesmas Sadu",
     kab: KABUPATEN,
     kec: KECAMATAN,
-    lat: -1.472,
-    lng: 104.842,
+    ...shiftCoord(-1.472, 104.842),
     detail: "Puskesmas Kecamatan",
   },
   {
     name: "Puskesmas Pembantu Remau Baku Tuo",
     kab: KABUPATEN,
     kec: DESA_UTAMA,
-    lat: -1.486,
-    lng: 104.856,
+    ...shiftCoord(-1.486, 104.856),
     detail: "Puskesmas Pembantu",
   },
   {
     name: "Posyandu Remau Baku Tuo",
     kab: KABUPATEN,
     kec: DESA_UTAMA,
-    lat: -1.484,
-    lng: 104.853,
+    ...REMAU_BAKU_TUO_CENTER,
     detail: "Posyandu",
   },
   {
     name: "Polindes Sungai Lokan",
     kab: KABUPATEN,
     kec: "Sungai Lokan",
-    lat: -1.471,
-    lng: 104.839,
+    ...shiftCoord(-1.471, 104.839),
     detail: "Polindes",
   },
   {
     name: "Posyandu Sungai Cemara",
     kab: KABUPATEN,
     kec: "Sungai Cemara",
-    lat: -1.497,
-    lng: 104.867,
+    ...shiftCoord(-1.497, 104.867),
     detail: "Posyandu",
   },
 ].map((f, i) => ({
@@ -374,8 +384,7 @@ const poskoMarkers: MapMarker[] = [
     name: "Posko Desa Remau Baku Tuo",
     kab: KABUPATEN,
     kec: DESA_UTAMA,
-    lat: -1.487,
-    lng: 104.854,
+    ...REMAU_BAKU_TUO_CENTER,
     kapasitas: 120,
     pengungsi: 98,
   },
@@ -383,8 +392,7 @@ const poskoMarkers: MapMarker[] = [
     name: "Posko Sungai Lokan",
     kab: KABUPATEN,
     kec: "Sungai Lokan",
-    lat: -1.473,
-    lng: 104.841,
+    ...shiftCoord(-1.473, 104.841),
     kapasitas: 80,
     pengungsi: 72,
   },
@@ -392,8 +400,7 @@ const poskoMarkers: MapMarker[] = [
     name: "Posko Sungai Cemara",
     kab: KABUPATEN,
     kec: "Sungai Cemara",
-    lat: -1.499,
-    lng: 104.869,
+    ...shiftCoord(-1.499, 104.869),
     kapasitas: 70,
     pengungsi: 58,
   },
@@ -401,8 +408,7 @@ const poskoMarkers: MapMarker[] = [
     name: "Posko Labuhan Pering",
     kab: KABUPATEN,
     kec: "Labuhan Pering",
-    lat: -1.466,
-    lng: 104.876,
+    ...shiftCoord(-1.466, 104.876),
     kapasitas: 60,
     pengungsi: 48,
   },
@@ -410,8 +416,7 @@ const poskoMarkers: MapMarker[] = [
     name: "Posko Air Hitam Laut",
     kab: KABUPATEN,
     kec: "Air Hitam Laut",
-    lat: -1.506,
-    lng: 104.831,
+    ...shiftCoord(-1.506, 104.831),
     kapasitas: 55,
     pengungsi: 42,
   },
@@ -419,8 +424,7 @@ const poskoMarkers: MapMarker[] = [
     name: "Posko Kecamatan Sadu",
     kab: KABUPATEN,
     kec: "Sungai Lokan",
-    lat: -1.47,
-    lng: 104.838,
+    ...shiftCoord(-1.47, 104.838),
     kapasitas: 100,
     pengungsi: 65,
   },
@@ -435,40 +439,35 @@ const jaringanMarkers: MapMarker[] = [
     name: "BTS Remau Baku Tuo",
     kab: KABUPATEN,
     kec: DESA_UTAMA,
-    lat: -1.483,
-    lng: 104.857,
+    ...shiftCoord(-1.483, 104.857),
     status: "critical" as const,
   },
   {
     name: "Fiber Sungai Lokan",
     kab: KABUPATEN,
     kec: "Sungai Lokan",
-    lat: -1.474,
-    lng: 104.843,
+    ...shiftCoord(-1.474, 104.843),
     status: "warning" as const,
   },
   {
     name: "BTS Sungai Cemara",
     kab: KABUPATEN,
     kec: "Sungai Cemara",
-    lat: -1.496,
-    lng: 104.866,
+    ...shiftCoord(-1.496, 104.866),
     status: "warning" as const,
   },
   {
     name: "Tower Labuhan Pering",
     kab: KABUPATEN,
     kec: "Labuhan Pering",
-    lat: -1.464,
-    lng: 104.874,
+    ...shiftCoord(-1.464, 104.874),
     status: "normal" as const,
   },
   {
     name: "BTS Air Hitam Laut",
     kab: KABUPATEN,
     kec: "Air Hitam Laut",
-    lat: -1.504,
-    lng: 104.832,
+    ...shiftCoord(-1.504, 104.832),
     status: "normal" as const,
   },
 ].map((j, i) => ({
