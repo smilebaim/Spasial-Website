@@ -3,8 +3,13 @@
 import Link from "next/link";
 import { LogIn, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { usePathname } from "next/navigation";
 
 export function TopDock() {
+  const pathname = usePathname();
+
+  if (pathname !== "/") return null;
+
   return (
     <header className="fixed top-0 left-0 right-0 z-[1000] px-3 pt-3 pointer-events-none">
       <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-xl bg-white/95 px-2.5 py-1.5 shadow-md dark:bg-card/95">
