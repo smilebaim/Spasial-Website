@@ -67,6 +67,7 @@ interface LeafletMapProps {
   legendTitle?: string;
   rounded?: boolean;
   tileStyle?: MapTileStyle;
+  zoomControl?: boolean;
 }
 
 export function LeafletMap({
@@ -80,6 +81,7 @@ export function LeafletMap({
   legendTitle = "Tingkat Dampak",
   rounded = true,
   tileStyle = "street",
+  zoomControl = true,
 }: LeafletMapProps) {
   const tiles = TILE_CONFIG[tileStyle];
   useEffect(() => {
@@ -100,6 +102,7 @@ export function LeafletMap({
         maxZoom={maxZoom}
         className={`h-full w-full z-0 ${rounded ? "rounded-lg" : ""}`}
         scrollWheelZoom
+        zoomControl={zoomControl}
       >
         <TileLayer attribution={tiles.attribution} url={tiles.url} />
         {tiles.labels && (

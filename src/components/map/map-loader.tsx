@@ -28,6 +28,7 @@ interface MapLoaderProps {
   legendTitle?: string;
   rounded?: boolean;
   tileStyle?: MapTileStyle;
+  zoomControl?: boolean;
 }
 
 export function MapLoader(props: MapLoaderProps) {
