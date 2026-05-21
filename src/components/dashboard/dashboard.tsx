@@ -194,21 +194,27 @@ export function Dashboard({
 
   return (
     <div className="min-h-screen bg-background pb-12">
-      <div className="px-6 py-3 flex items-center justify-between border-b bg-muted/30">
+      <div className="px-6 py-4 flex items-center justify-between border-b bg-primary text-primary-foreground shadow-sm">
         <div>
-          <h2 className="text-sm font-semibold text-foreground">Dashboard Monitoring</h2>
-          <p className="text-xs text-muted-foreground">
+          <h2 className="text-sm font-bold uppercase tracking-wide">Dashboard Monitoring</h2>
+          <p className="text-[11px] opacity-90 font-medium">
             Desa {DESA_UTAMA} · Kec. {KECAMATAN} · {KABUPATEN}, {PROVINSI}
           </p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="text-right">
-            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+        <div className="flex items-center gap-4">
+          <div className="text-right hidden sm:block border-r border-primary-foreground/20 pr-4">
+            <div className="text-[9px] uppercase tracking-widest opacity-80">
               Update Terakhir
             </div>
-            <div className="text-sm font-medium">{data.updatedAt}</div>
+            <div className="text-xs font-bold">{data.updatedAt}</div>
           </div>
-          <Button size="icon" variant="outline" onClick={loadData} disabled={loading}>
+          <Button 
+            size="icon" 
+            variant="ghost" 
+            onClick={loadData} 
+            disabled={loading}
+            className="text-primary-foreground hover:bg-white/10 hover:text-primary-foreground h-8 w-8"
+          >
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
         </div>
@@ -779,24 +785,21 @@ export function Dashboard({
         </TabsContent>
       </Tabs>
 
-      <footer
-        className="text-primary-foreground px-6 py-4 mt-6 flex flex-col items-center text-center gap-4 md:flex-row md:items-center md:justify-between md:text-left"
-        style={{ background: "var(--gradient-header)" }}
-      >
+      <footer className="bg-card text-muted-foreground px-6 py-6 mt-8 border-t flex flex-col items-center text-center gap-4 md:flex-row md:items-center md:justify-between md:text-left">
         <div className="flex flex-col items-center gap-3 md:flex-row md:items-center">
-          <div className="bg-white/15 backdrop-blur p-2 rounded-lg">
+          <div className="bg-muted p-2 rounded-lg text-primary">
             <Shield className="w-4 h-4" />
           </div>
           <div>
-            <div className="font-semibold text-sm">
+            <div className="font-semibold text-sm text-foreground">
               Dashboard Monitoring Bencana Hidrometeorologi
             </div>
-            <div className="text-xs opacity-90">Next.js Fullstack · Leaflet · API Routes</div>
+            <div className="text-xs">Next.js Fullstack · Leaflet · API Routes</div>
           </div>
         </div>
-        <div className="text-xs opacity-90 md:text-right">
+        <div className="text-xs md:text-right">
           <div>
-            Dalam Pengembangan · <span className="font-semibold">Tim Spatial Society</span>
+            Dalam Pengembangan · <span className="font-semibold text-foreground">Tim Spatial Society</span>
           </div>
           <div>© 2026 Spatial Research</div>
         </div>
