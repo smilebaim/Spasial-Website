@@ -340,7 +340,6 @@ export function Dashboard({
                   markers={profilMarkers}
                   className="h-full min-h-[500px]"
                   legendTitle="Tingkat Dampak"
-                  geoJsonData={VILLAGE_BOUNDARY}
                 />
               </Card>
             </div>
@@ -501,7 +500,6 @@ export function Dashboard({
                   markers={operasiMarkers}
                   className="h-full min-h-[600px]"
                   legendTitle="Legenda Peta"
-                  geoJsonData={VILLAGE_BOUNDARY}
                 />
               </Card>
             </div>
