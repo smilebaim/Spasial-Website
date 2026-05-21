@@ -232,7 +232,7 @@ export function Dashboard({
 
       <Tabs value={tab} onValueChange={setTab} className="w-full">
         <div className="border-b bg-card">
-          <TabsList className="bg-transparent h-auto p-0 px-6">
+          <TabsList className="bg-transparent h-auto p-0 px-4 md:px-6 w-full flex justify-between md:justify-start">
             {(
               [
                 { v: "profil", l: "Profil", I: AlertTriangle },
@@ -244,10 +244,10 @@ export function Dashboard({
               <TabsTrigger
                 key={v}
                 value={v}
-                className="data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none py-3 px-4 gap-2 text-muted-foreground"
+                className="flex-1 md:flex-none data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none py-3 px-2 md:px-4 gap-2 text-muted-foreground transition-all"
               >
-                <I className="w-4 h-4" />
-                {l}
+                <I className="w-5 h-5 md:w-4 md:h-4" />
+                <span className="hidden md:inline text-xs font-medium">{l}</span>
               </TabsTrigger>
             ))}
           </TabsList>
