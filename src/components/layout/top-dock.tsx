@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { LogIn, Map } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,8 +8,13 @@ import { usePathname } from "next/navigation";
 
 export function TopDock() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
 
-  if (pathname !== "/") return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || pathname !== "/") return null;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[1000] px-3 pt-3 pointer-events-none">

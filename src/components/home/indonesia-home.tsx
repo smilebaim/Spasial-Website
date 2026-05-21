@@ -11,7 +11,7 @@ import {
 
 export function IndonesiaHome() {
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-background home-map-full pt-14">
+    <div className="relative h-screen w-screen overflow-hidden bg-background home-map-full">
       <MapLoader
         markers={allMarkers}
         center={INDONESIA_MAP_CENTER}
@@ -21,7 +21,7 @@ export function IndonesiaHome() {
         showLegend={false}
         zoomControl={false}
         rounded={false}
-        className="absolute inset-x-0 top-14 bottom-[4.5rem] w-full"
+        className="absolute inset-0 w-full h-full"
       />
     </div>
   );
