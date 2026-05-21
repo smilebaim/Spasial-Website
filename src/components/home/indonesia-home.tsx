@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { Map, LayoutDashboard, LogIn } from "lucide-react";
+import { Map, LogIn } from "lucide-react";
 import { MapLoader } from "@/components/map/map-loader";
 import {
   allMarkers,
@@ -59,19 +58,6 @@ export function IndonesiaHome() {
           </Button>
         </div>
       </header>
-
-      {/* Bottom dock — tombol dashboard saja */}
-      <footer className="absolute bottom-0 left-0 right-0 z-[1000] p-3 pointer-events-none">
-        <div className="flex justify-center">
-          <Link
-            href="/Dashboard-Desa"
-            className="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-xl bg-white/95 text-foreground shadow-md transition-all duration-200 hover:bg-white hover:scale-105 dark:bg-card/95"
-            aria-label="Dashboard"
-          >
-            <LayoutDashboard className="h-4 w-4" />
-          </Link>
-        </div>
-      </footer>
     </div>
   );
 }

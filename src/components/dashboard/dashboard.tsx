@@ -177,7 +177,7 @@ export function Dashboard({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-background pb-20">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <RefreshCw className="w-8 h-8 animate-spin text-primary" />
           <p className="text-sm">Memuat data dashboard...</p>
@@ -187,7 +187,7 @@ export function Dashboard({
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       <header
         className="text-primary-foreground px-6 py-4 flex items-center justify-between shadow-[var(--shadow-elevated)]"
         style={{ background: "var(--gradient-header)" }}

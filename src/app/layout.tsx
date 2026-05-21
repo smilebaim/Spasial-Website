@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BottomDock } from "@/components/layout/bottom-dock";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <BottomDock />
+      </body>
     </html>
   );
 }
