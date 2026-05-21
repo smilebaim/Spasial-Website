@@ -183,7 +183,7 @@ export function Dashboard({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background pt-14 pb-20">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <RefreshCw className="w-8 h-8 animate-spin text-primary" />
           <p className="text-sm">Memuat data dashboard...</p>
@@ -193,7 +193,7 @@ export function Dashboard({
   }
 
   return (
-    <div className="min-h-screen bg-background pt-14 pb-20">
+    <div className="min-h-screen bg-background pb-12">
       <div className="px-6 py-3 flex items-center justify-between border-b bg-muted/30">
         <div>
           <h2 className="text-sm font-semibold text-foreground">Dashboard Monitoring</h2>
