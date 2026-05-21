@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap, GeoJSON } from "react-leaflet";
 import L from "leaflet";
 import { getMarkerColor, MAP_CENTER, MAP_DEFAULT_ZOOM, type MapMarker } from "@/lib/data/dummy";
 import type { MapTileStyle } from "@/components/map/map-types";
@@ -61,6 +61,7 @@ interface LeafletMapProps {
   rounded?: boolean;
   tileStyle?: MapTileStyle;
   zoomControl?: boolean;
+  geoJsonData?: any;
 }
 
 function LeafletMap({
@@ -75,6 +76,7 @@ function LeafletMap({
   rounded = true,
   tileStyle = "satellite",
   zoomControl = true,
+  geoJsonData,
 }: LeafletMapProps) {
   const [mounted, setMounted] = useState(false);
   const tiles = TILE_CONFIG[tileStyle];
@@ -113,6 +115,20 @@ function LeafletMap({
           <TileLayer attribution={tiles.labels.attribution} url={tiles.labels.url} opacity={0.85} />
         )}
         <MapResizer />
+        
+        {geoJsonData && (
+          <GeoJSON 
+            data={geoJsonData} 
+            style={{
+              color: "#22c55e",
+              weight: 3,
+              fillColor: "#22c55e",
+              fillOpacity: 0.1,
+              dashArray: "5, 10",
+            }} 
+          />
+        )}
+
         {markers.map((m) => (
           <Marker key={m.id} position={[m.lat, m.lng]} icon={createIcon(getMarkerColor(m))}>
             <Popup>

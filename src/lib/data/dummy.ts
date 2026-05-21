@@ -132,6 +132,34 @@ export const INDONESIA_MAP_ZOOM = 13.5;
 export const INDONESIA_MAP_MIN_ZOOM = 10;
 export const INDONESIA_MAP_MAX_ZOOM = 18;
 
+/** Batas Desa Remau Baku Tuo (GeoJSON format) */
+export const VILLAGE_BOUNDARY = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: { name: "Remau Baku Tuo" },
+      geometry: {
+        type: "Polygon",
+        coordinates: [
+          [
+            [104.352, -1.215],
+            [104.365, -1.205],
+            [104.385, -1.210],
+            [104.398, -1.225],
+            [104.405, -1.245],
+            [104.390, -1.260],
+            [104.370, -1.265],
+            [104.355, -1.255],
+            [104.345, -1.235],
+            [104.352, -1.215],
+          ],
+        ],
+      },
+    },
+  ],
+};
+
 export const dashboardData: DashboardData = {
   updatedAt: "20 Mei 2026, 14:32",
   stats: {

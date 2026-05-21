@@ -7,6 +7,7 @@ import {
   INDONESIA_MAP_MAX_ZOOM,
   INDONESIA_MAP_MIN_ZOOM,
   INDONESIA_MAP_ZOOM,
+  VILLAGE_BOUNDARY,
 } from "@/lib/data/dummy";
 
 export function IndonesiaHome() {
@@ -21,6 +22,7 @@ export function IndonesiaHome() {
         showLegend={false}
         zoomControl={false}
         rounded={false}
+        geoJsonData={VILLAGE_BOUNDARY}
         className="absolute inset-0 w-full h-full"
       />
     </div>

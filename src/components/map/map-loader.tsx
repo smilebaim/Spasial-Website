@@ -29,6 +29,7 @@ interface MapLoaderProps {
   rounded?: boolean;
   tileStyle?: MapTileStyle;
   zoomControl?: boolean;
+  geoJsonData?: any;
 }
 
 export function MapLoader(props: MapLoaderProps) {
