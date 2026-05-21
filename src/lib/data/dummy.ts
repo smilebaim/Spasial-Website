@@ -124,11 +124,11 @@ const DAMPAK_COLOR: Record<DampakLevel, string> = {
 
 /** Pusat peta — Desa Remau Baku Tuo */
 export const MAP_CENTER = REMAU_BAKU_TUO_CENTER;
-export const MAP_DEFAULT_ZOOM = 15;
+export const MAP_DEFAULT_ZOOM = 13.5;
 
 /** Tampilan peta halaman utama — wilayah Kec. Sadu */
 export const INDONESIA_MAP_CENTER = REMAU_BAKU_TUO_CENTER;
-export const INDONESIA_MAP_ZOOM = 15;
+export const INDONESIA_MAP_ZOOM = 13.5;
 export const INDONESIA_MAP_MIN_ZOOM = 10;
 export const INDONESIA_MAP_MAX_ZOOM = 18;
 
