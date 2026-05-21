@@ -20,7 +20,6 @@ export function IndonesiaHome() {
         zoom={INDONESIA_MAP_ZOOM}
         minZoom={INDONESIA_MAP_MIN_ZOOM}
         maxZoom={INDONESIA_MAP_MAX_ZOOM}
-        tileStyle="satellite"
         showLegend={false}
         zoomControl={false}
         rounded={false}

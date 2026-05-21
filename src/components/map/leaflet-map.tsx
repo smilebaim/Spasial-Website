@@ -73,7 +73,7 @@ function LeafletMap({
   showLegend = true,
   legendTitle = "Tingkat Dampak",
   rounded = true,
-  tileStyle = "street",
+  tileStyle = "satellite",
   zoomControl = true,
 }: LeafletMapProps) {
   const [mounted, setMounted] = useState(false);
