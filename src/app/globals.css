@@ -141,7 +141,7 @@
   border: none !important;
 }
 
-/* Full-screen home map — hide default leaflet attribution overlap with dock */
+/* Full-screen home map — hide default leaflet attribution overlap with top dock */
 .home-map-full .leaflet-control-attribution {
   margin-bottom: 5.5rem;
   font-size: 9px;

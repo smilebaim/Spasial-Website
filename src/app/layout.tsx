@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { TopDock } from "@/components/layout/top-dock";
 import { BottomDock } from "@/components/layout/bottom-dock";
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className="antialiased">
+        <TopDock />
         {children}
         <BottomDock />
       </body>

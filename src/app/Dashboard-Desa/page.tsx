@@ -3,9 +3,9 @@ import { allMarkers, dashboardData } from "@/lib/data/dummy";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard Desa — Monitoring Hidrometeorologi",
+  title: "Dashboard Desa — Remau Baku Tuo, Jambi",
   description:
-    "Dashboard monitoring bencana hidrometeorologi tingkat desa dan kabupaten — Spatial Society",
+    "Dashboard monitoring hidrometeorologi Desa Remau Baku Tuo, Kecamatan Sadu, Kabupaten Tanjung Jabung Timur, Provinsi Jambi",
 };
 
 export default function DashboardDesaPage() {

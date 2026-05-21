@@ -2,9 +2,9 @@ import { IndonesiaHome } from "@/components/home/indonesia-home";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Peta Indonesia — Digital Spasial",
+  title: "Peta Desa Remau Baku Tuo — Jambi",
   description:
-    "Peta interaktif nasional Indonesia dengan sistem informasi geospasial — Spatial Society",
+    "Peta interaktif Desa Remau Baku Tuo, Kecamatan Sadu, Kabupaten Tanjung Jabung Timur, Provinsi Jambi — Digital Spasial",
 };
 
 export default function HomePage() {

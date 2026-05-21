@@ -50,6 +50,12 @@ import {
   dashboardData as fallbackData,
   formatNumber,
   allMarkers as fallbackMarkers,
+  DESA_SADU,
+  DESA_UTAMA,
+  desaToFilterSlug,
+  KABUPATEN,
+  KECAMATAN,
+  PROVINSI,
 } from "@/lib/data/dummy";
 
 function StatCard({
@@ -177,7 +183,7 @@ export function Dashboard({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background pb-20">
+      <div className="min-h-screen flex items-center justify-center bg-background pt-14 pb-20">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <RefreshCw className="w-8 h-8 animate-spin text-primary" />
           <p className="text-sm">Memuat data dashboard...</p>
@@ -187,36 +193,26 @@ export function Dashboard({
   }
 
   return (
-    <div className="min-h-screen bg-background pb-20">
-      <header
-        className="text-primary-foreground px-6 py-4 flex items-center justify-between shadow-[var(--shadow-elevated)]"
-        style={{ background: "var(--gradient-header)" }}
-      >
-        <div className="flex items-center gap-3">
-          <div className="bg-white/15 backdrop-blur p-2 rounded-lg">
-            <Shield className="w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold leading-tight">Dashboard Monitoring</h1>
-            <p className="text-xs opacity-90">Hidrometeorologi · Spatial Society</p>
-          </div>
+    <div className="min-h-screen bg-background pt-14 pb-20">
+      <div className="px-6 py-3 flex items-center justify-between border-b bg-muted/30">
+        <div>
+          <h2 className="text-sm font-semibold text-foreground">Dashboard Monitoring</h2>
+          <p className="text-xs text-muted-foreground">
+            Desa {DESA_UTAMA} · Kec. {KECAMATAN} · {KABUPATEN}, {PROVINSI}
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <div className="text-[10px] uppercase tracking-wider opacity-80">Update Terakhir</div>
+            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+              Update Terakhir
+            </div>
             <div className="text-sm font-medium">{data.updatedAt}</div>
           </div>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="hover:bg-white/15 text-primary-foreground"
-            onClick={loadData}
-            disabled={loading}
-          >
+          <Button size="icon" variant="outline" onClick={loadData} disabled={loading}>
             <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
         </div>
-      </header>
+      </div>
 
       {error && (
         <div className="mx-6 mt-4 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive flex items-center justify-between gap-4">
@@ -284,7 +280,7 @@ export function Dashboard({
             />
             <StatCard
               icon={Building2}
-              label="Kabupaten Terdampak"
+              label="Kab. Terdampak"
               value={String(stats.kabTerdampak)}
               color="bg-purple-100 text-purple-600"
             />
@@ -528,19 +524,19 @@ export function Dashboard({
                   </div>
                   <div>
                     <div className="text-xs font-semibold text-muted-foreground mb-1">
-                      FILTER KABUPATEN:
+                      FILTER DESA:
                     </div>
                     <Select value={filterKab} onValueChange={(v) => setFilterKab(v)}>
                       <SelectTrigger className="h-8 text-xs">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Semua Kab/Kota</SelectItem>
-                        <SelectItem value="demak">Demak</SelectItem>
-                        <SelectItem value="kudus">Kudus</SelectItem>
-                        <SelectItem value="pati">Pati</SelectItem>
-                        <SelectItem value="jepara">Jepara</SelectItem>
-                        <SelectItem value="grobogan">Grobogan</SelectItem>
+                        <SelectItem value="all">Semua Desa (Kec. Sadu)</SelectItem>
+                        {DESA_SADU.map((desa) => (
+                          <SelectItem key={desa} value={desaToFilterSlug(desa)}>
+                            {desa}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -639,7 +635,7 @@ export function Dashboard({
             <table className="w-full text-sm">
               <thead className="bg-muted text-xs uppercase text-muted-foreground">
                 <tr>
-                  {["Kabupaten/Kota", "Penduduk", "KK", "Pengungsi"].map((h) => (
+                  {["Desa", "Penduduk", "KK", "Pengungsi"].map((h) => (
                     <th key={h} className="px-3 py-2 text-left">
                       {h}
                     </th>
@@ -709,7 +705,7 @@ export function Dashboard({
             </Card>
 
             <Card className="col-span-12 md:col-span-4 p-4">
-              <SectionTitle icon={TrendingUp}>Top Kabupaten</SectionTitle>
+              <SectionTitle icon={TrendingUp}>Top Desa</SectionTitle>
               <ResponsiveContainer width="100%" height={220}>
                 <BarChart
                   data={data.topWilayah.map((t) => ({

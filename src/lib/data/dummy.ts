@@ -2,6 +2,23 @@ export type DampakLevel = "berat" | "sedang" | "ringan" | "aman";
 export type MarkerType = "wilayah" | "faskes" | "posko" | "jaringan";
 export type JaringanStatus = "critical" | "warning" | "normal";
 
+export const PROVINSI = "Jambi";
+export const KABUPATEN = "Tanjung Jabung Timur";
+export const KECAMATAN = "Sadu";
+export const DESA_UTAMA = "Remau Baku Tuo";
+
+export const DESA_SADU = [
+  "Remau Baku Tuo",
+  "Sungai Lokan",
+  "Sungai Cemara",
+  "Labuhan Pering",
+  "Air Hitam Laut",
+  "Sungai Benuh",
+  "Sungai Itik",
+  "Sungai Jambat",
+  "Sungai Sayang",
+] as const;
+
 export interface MapMarker {
   id: string;
   type: MarkerType;
@@ -70,12 +87,17 @@ export interface DashboardData {
   distribusiBantuan: { n: string; v: number }[];
 }
 
-const KAB_COORDS: Record<string, { lat: number; lng: number }> = {
-  Demak: { lat: -6.8949, lng: 110.6396 },
-  Kudus: { lat: -6.8048, lng: 110.8407 },
-  Pati: { lat: -6.7556, lng: 111.038 },
-  Jepara: { lat: -6.5944, lng: 110.671 },
-  Grobogan: { lat: -7.1542, lng: 110.9189 },
+/** Koordinat desa di Kecamatan Sadu, Kab. Tanjung Jabung Timur, Jambi */
+const DESA_COORDS: Record<string, { lat: number; lng: number }> = {
+  "Remau Baku Tuo": { lat: -1.485, lng: 104.855 },
+  "Sungai Lokan": { lat: -1.472, lng: 104.84 },
+  "Sungai Cemara": { lat: -1.498, lng: 104.868 },
+  "Labuhan Pering": { lat: -1.465, lng: 104.875 },
+  "Air Hitam Laut": { lat: -1.505, lng: 104.83 },
+  "Sungai Benuh": { lat: -1.478, lng: 104.862 },
+  "Sungai Itik": { lat: -1.492, lng: 104.848 },
+  "Sungai Jambat": { lat: -1.468, lng: 104.852 },
+  "Sungai Sayang": { lat: -1.501, lng: 104.845 },
 };
 
 const DAMPAK_COLOR: Record<DampakLevel, string> = {
@@ -85,209 +107,261 @@ const DAMPAK_COLOR: Record<DampakLevel, string> = {
   aman: "#22c55e",
 };
 
-export const MAP_CENTER = { lat: -6.82, lng: 110.85 };
-export const MAP_DEFAULT_ZOOM = 9;
+/** Pusat peta — Desa Remau Baku Tuo */
+export const MAP_CENTER = { lat: -1.485, lng: 104.855 };
+export const MAP_DEFAULT_ZOOM = 13;
 
-/** Pusat dan zoom untuk tampilan peta seluruh Indonesia */
-export const INDONESIA_MAP_CENTER = { lat: -2.5, lng: 118 };
-export const INDONESIA_MAP_ZOOM = 5;
-export const INDONESIA_MAP_MIN_ZOOM = 4;
-export const INDONESIA_MAP_MAX_ZOOM = 12;
+/** Tampilan peta halaman utama — wilayah Kec. Sadu */
+export const INDONESIA_MAP_CENTER = { lat: -1.485, lng: 104.855 };
+export const INDONESIA_MAP_ZOOM = 12;
+export const INDONESIA_MAP_MIN_ZOOM = 10;
+export const INDONESIA_MAP_MAX_ZOOM = 16;
 
 export const dashboardData: DashboardData = {
   updatedAt: "20 Mei 2026, 14:32",
   stats: {
-    totalKorban: 3940,
-    pengungsi: 12450,
-    titikPengungsian: 84,
-    rumahRusak: 2310,
-    sawahHa: 405,
-    kabTerdampak: 5,
-    totalPenduduk: 5990000,
-    totalKK: 1685000,
-    disabilitas: 3420,
-    totalDesa: 248,
-    orangHilangDicari: 7,
-    orangHilangDitemukan: 15,
+    totalKorban: 186,
+    pengungsi: 420,
+    titikPengungsian: 8,
+    rumahRusak: 95,
+    sawahHa: 45,
+    kabTerdampak: 1,
+    totalPenduduk: 3480,
+    totalKK: 980,
+    disabilitas: 42,
+    totalDesa: 9,
+    orangHilangDicari: 2,
+    orangHilangDitemukan: 5,
   },
   statusWilayah: [
-    { name: "Aman", value: 42, color: "oklch(0.65 0.18 145)" },
-    { name: "Waspada", value: 18, color: "oklch(0.75 0.18 75)" },
-    { name: "Siaga", value: 9, color: "oklch(0.7 0.2 50)" },
-    { name: "Awas", value: 5, color: "oklch(0.55 0.22 27)" },
+    { name: "Aman", value: 4, color: "oklch(0.65 0.18 145)" },
+    { name: "Waspada", value: 2, color: "oklch(0.75 0.18 75)" },
+    { name: "Siaga", value: 2, color: "oklch(0.7 0.2 50)" },
+    { name: "Awas", value: 1, color: "oklch(0.55 0.22 27)" },
   ],
   topWilayah: [
-    { name: "Demak", korban: 1240 },
-    { name: "Kudus", korban: 980 },
-    { name: "Pati", korban: 760 },
-    { name: "Jepara", korban: 540 },
-    { name: "Grobogan", korban: 420 },
+    { name: "Remau Baku Tuo", korban: 68 },
+    { name: "Sungai Lokan", korban: 42 },
+    { name: "Sungai Cemara", korban: 35 },
+    { name: "Labuhan Pering", korban: 24 },
+    { name: "Air Hitam Laut", korban: 17 },
   ],
   pertanianData: [
     {
-      nama: "Sawah Mlatiharjo",
-      kab: "Demak",
-      kec: "Gajah",
-      vol: "120 Ha",
-      rugi: "Rp 2.4 M",
+      nama: "Sawah Remau Baku Tuo",
+      kab: KABUPATEN,
+      kec: KECAMATAN,
+      vol: "18 Ha",
+      rugi: "Rp 420 Jt",
       kondisi: "Berat",
     },
     {
-      nama: "Sawah Karangrowo",
-      kab: "Kudus",
-      kec: "Undaan",
-      vol: "85 Ha",
-      rugi: "Rp 1.8 M",
+      nama: "Sawah Sungai Cemara",
+      kab: KABUPATEN,
+      kec: KECAMATAN,
+      vol: "12 Ha",
+      rugi: "Rp 280 Jt",
       kondisi: "Sedang",
     },
     {
-      nama: "Sawah Tlogowungu",
-      kab: "Pati",
-      kec: "Tlogowungu",
-      vol: "60 Ha",
-      rugi: "Rp 1.2 M",
+      nama: "Ladang Sungai Lokan",
+      kab: KABUPATEN,
+      kec: KECAMATAN,
+      vol: "8 Ha",
+      rugi: "Rp 195 Jt",
       kondisi: "Ringan",
     },
     {
-      nama: "Sawah Bandungrejo",
-      kab: "Demak",
-      kec: "Mranggen",
-      vol: "95 Ha",
-      rugi: "Rp 2.0 M",
+      nama: "Kebun Labuhan Pering",
+      kab: KABUPATEN,
+      kec: KECAMATAN,
+      vol: "5 Ha",
+      rugi: "Rp 120 Jt",
+      kondisi: "Sedang",
+    },
+    {
+      nama: "Sawah Air Hitam Laut",
+      kab: KABUPATEN,
+      kec: KECAMATAN,
+      vol: "2 Ha",
+      rugi: "Rp 85 Jt",
       kondisi: "Berat",
-    },
-    {
-      nama: "Sawah Margoyoso",
-      kab: "Pati",
-      kec: "Margoyoso",
-      vol: "45 Ha",
-      rugi: "Rp 950 Jt",
-      kondisi: "Sedang",
-    },
-    {
-      nama: "Sawah Bulu",
-      kab: "Jepara",
-      kec: "Tahunan",
-      vol: "72 Ha",
-      rugi: "Rp 1.5 M",
-      kondisi: "Sedang",
-    },
-    {
-      nama: "Sawah Purwodadi",
-      kab: "Grobogan",
-      kec: "Purwodadi",
-      vol: "55 Ha",
-      rugi: "Rp 1.1 M",
-      kondisi: "Ringan",
     },
   ],
   pendudukData: [
-    { kab: "Demak", penduduk: 1150000, kk: 320000, pengungsi: 4200 },
-    { kab: "Kudus", penduduk: 870000, kk: 245000, pengungsi: 2850 },
-    { kab: "Pati", penduduk: 1280000, kk: 360000, pengungsi: 2100 },
-    { kab: "Jepara", penduduk: 1240000, kk: 350000, pengungsi: 1800 },
-    { kab: "Grobogan", penduduk: 1450000, kk: 410000, pengungsi: 1500 },
+    { kab: "Remau Baku Tuo", penduduk: 520, kk: 148, pengungsi: 145 },
+    { kab: "Sungai Lokan", penduduk: 410, kk: 118, pengungsi: 82 },
+    { kab: "Sungai Cemara", penduduk: 485, kk: 132, pengungsi: 68 },
+    { kab: "Labuhan Pering", penduduk: 390, kk: 105, pengungsi: 54 },
+    { kab: "Air Hitam Laut", penduduk: 365, kk: 98, pengungsi: 41 },
   ],
   bantuanData: [
-    { desa: "Mlatiharjo", kec: "Gajah", kab: "Demak", satuan: "500 Paket", status: "Kuning" },
-    { desa: "Karangrowo", kec: "Undaan", kab: "Kudus", satuan: "350 Paket", status: "Biru" },
-    { desa: "Tlogowungu", kec: "Tlogowungu", kab: "Pati", satuan: "200 Paket", status: "Abu-abu" },
-    { desa: "Bandungrejo", kec: "Mranggen", kab: "Demak", satuan: "400 Paket", status: "Kuning" },
-    { desa: "Margoyoso", kec: "Margoyoso", kab: "Pati", satuan: "150 Paket", status: "Putih" },
     {
-      desa: "Kalinyamatan",
-      kec: "Kalinyamatan",
-      kab: "Jepara",
-      satuan: "280 Paket",
+      desa: "Remau Baku Tuo",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "180 Paket",
+      status: "Kuning",
+    },
+    {
+      desa: "Sungai Lokan",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "120 Paket",
       status: "Biru",
     },
-    { desa: "Purwodadi", kec: "Purwodadi", kab: "Grobogan", satuan: "320 Paket", status: "Kuning" },
-    { desa: "Bonang", kec: "Bonang", kab: "Demak", satuan: "180 Paket", status: "Biru" },
-    { desa: "Gebog", kec: "Gebog", kab: "Kudus", satuan: "220 Paket", status: "Kuning" },
-    { desa: "Sukolilo", kec: "Sukolilo", kab: "Pati", satuan: "160 Paket", status: "Abu-abu" },
+    {
+      desa: "Sungai Cemara",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "95 Paket",
+      status: "Abu-abu",
+    },
+    {
+      desa: "Labuhan Pering",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "80 Paket",
+      status: "Kuning",
+    },
+    {
+      desa: "Air Hitam Laut",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "65 Paket",
+      status: "Putih",
+    },
+    {
+      desa: "Sungai Benuh",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "55 Paket",
+      status: "Biru",
+    },
+    {
+      desa: "Sungai Itik",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "48 Paket",
+      status: "Kuning",
+    },
+    {
+      desa: "Sungai Jambat",
+      kec: KECAMATAN,
+      kab: KABUPATEN,
+      satuan: "42 Paket",
+      status: "Biru",
+    },
   ],
   sektorData: [
-    { name: "Permukiman", value: 4200 },
-    { name: "Infrastruktur", value: 3100 },
-    { name: "Pertanian", value: 2400 },
-    { name: "Sosial", value: 1500 },
+    { name: "Permukiman", value: 95 },
+    { name: "Infrastruktur", value: 68 },
+    { name: "Pertanian", value: 45 },
+    { name: "Sosial", value: 32 },
   ],
   ringkasanKerusakan: [
-    { label: "Fasum Rusak", value: "84" },
-    { label: "Kebun (Ha)", value: "215" },
-    { label: "Tambak (Ha)", value: "92" },
+    { label: "Fasum Rusak", value: "24" },
+    { label: "Kebun (Ha)", value: "18" },
+    { label: "Tambak (Ha)", value: "12" },
   ],
   rekapCluster: {
-    kerusakan: "Rp 18.2 M",
-    kerugian: "Rp 12.5 M",
-    total: "Rp 30.7 M",
+    kerusakan: "Rp 2.8 M",
+    kerugian: "Rp 1.9 M",
+    total: "Rp 4.7 M",
   },
   faskes: [
-    { label: "PKM", value: 28 },
-    { label: "RSUD", value: 6 },
-    { label: "RS Swasta", value: 12 },
+    { label: "Puskesmas", value: 2 },
+    { label: "Posyandu", value: 9 },
+    { label: "Polindes", value: 4 },
   ],
   jaringan: [
-    { label: "Critical", value: 3, status: "critical" },
-    { label: "Warning", value: 8, status: "warning" },
-    { label: "Normal", value: 35, status: "normal" },
+    { label: "Critical", value: 1, status: "critical" },
+    { label: "Warning", value: 2, status: "warning" },
+    { label: "Normal", value: 5, status: "normal" },
   ],
   posko: [
-    { label: "Total Posko", value: 84 },
-    { label: "Pengungsi", value: 12450 },
-    { label: "Titik", value: 84 },
+    { label: "Total Posko", value: 8 },
+    { label: "Pengungsi", value: 420 },
+    { label: "Titik", value: 8 },
   ],
   disabilitasChart: [
-    { n: "Fisik", v: 1200 },
-    { n: "Sensorik", v: 850 },
-    { n: "Mental", v: 620 },
-    { n: "Lainnya", v: 750 },
+    { n: "Fisik", v: 18 },
+    { n: "Sensorik", v: 12 },
+    { n: "Mental", v: 6 },
+    { n: "Lainnya", v: 6 },
   ],
   distribusiBantuan: [
-    { n: "Kuning", v: 120 },
-    { n: "Biru", v: 68 },
-    { n: "Abu-abu", v: 35 },
-    { n: "Putih", v: 25 },
+    { n: "Kuning", v: 42 },
+    { n: "Biru", v: 28 },
+    { n: "Abu-abu", v: 15 },
+    { n: "Putih", v: 10 },
   ],
 };
 
 const wilayahMarkers: MapMarker[] = (
   [
-    ["Demak", "berat"],
-    ["Kudus", "sedang"],
-    ["Pati", "ringan"],
-    ["Jepara", "berat"],
-    ["Grobogan", "aman"],
+    ["Remau Baku Tuo", "berat"],
+    ["Sungai Lokan", "sedang"],
+    ["Sungai Cemara", "ringan"],
+    ["Labuhan Pering", "sedang"],
+    ["Air Hitam Laut", "berat"],
+    ["Sungai Benuh", "aman"],
   ] as const
-).map(([kab, dampak], i) => {
-  const c = KAB_COORDS[kab];
+).map(([desa, dampak], i) => {
+  const c = DESA_COORDS[desa];
   return {
     id: `wilayah-${i}`,
     type: "wilayah" as const,
-    name: `Kab. ${kab}`,
-    kab,
+    name: `Desa ${desa}`,
+    kab: KABUPATEN,
+    kec: desa,
     lat: c.lat,
     lng: c.lng,
     dampak,
-    detail: `Tingkat dampak: ${dampak}`,
+    detail: `${KECAMATAN}, ${KABUPATEN}, ${PROVINSI} — Dampak: ${dampak}`,
   };
 });
 
 const faskesMarkers: MapMarker[] = [
-  { name: "RSUD Kudus", kab: "Kudus", lat: -6.81, lng: 110.842, detail: "RSUD" },
-  { name: "RSUD Pati", kab: "Pati", lat: -6.756, lng: 111.04, detail: "RSUD" },
-  { name: "RSUD Demak", kab: "Demak", lat: -6.893, lng: 110.641, detail: "RSUD" },
-  { name: "PKM Gajah", kab: "Demak", kec: "Gajah", lat: -6.92, lng: 110.61, detail: "PKM" },
-  { name: "PKM Undaan", kab: "Kudus", kec: "Undaan", lat: -6.83, lng: 110.86, detail: "PKM" },
-  { name: "PKM Tahunan", kab: "Jepara", kec: "Tahunan", lat: -6.6, lng: 110.68, detail: "PKM" },
-  { name: "RS Mitra Jepara", kab: "Jepara", lat: -6.59, lng: 110.67, detail: "RS Swasta" },
   {
-    name: "PKM Purwodadi",
-    kab: "Grobogan",
-    kec: "Purwodadi",
-    lat: -7.15,
-    lng: 110.92,
-    detail: "PKM",
+    name: "Puskesmas Sadu",
+    kab: KABUPATEN,
+    kec: KECAMATAN,
+    lat: -1.472,
+    lng: 104.842,
+    detail: "Puskesmas Kecamatan",
+  },
+  {
+    name: "Puskesmas Pembantu Remau Baku Tuo",
+    kab: KABUPATEN,
+    kec: DESA_UTAMA,
+    lat: -1.486,
+    lng: 104.856,
+    detail: "Puskesmas Pembantu",
+  },
+  {
+    name: "Posyandu Remau Baku Tuo",
+    kab: KABUPATEN,
+    kec: DESA_UTAMA,
+    lat: -1.484,
+    lng: 104.853,
+    detail: "Posyandu",
+  },
+  {
+    name: "Polindes Sungai Lokan",
+    kab: KABUPATEN,
+    kec: "Sungai Lokan",
+    lat: -1.471,
+    lng: 104.839,
+    detail: "Polindes",
+  },
+  {
+    name: "Posyandu Sungai Cemara",
+    kab: KABUPATEN,
+    kec: "Sungai Cemara",
+    lat: -1.497,
+    lng: 104.867,
+    detail: "Posyandu",
   },
 ].map((f, i) => ({
   id: `faskes-${i}`,
@@ -297,76 +371,58 @@ const faskesMarkers: MapMarker[] = [
 
 const poskoMarkers: MapMarker[] = [
   {
-    name: "Posko Gajah Demak",
-    kab: "Demak",
-    kec: "Gajah",
-    lat: -6.91,
-    lng: 110.62,
-    kapasitas: 500,
-    pengungsi: 420,
+    name: "Posko Desa Remau Baku Tuo",
+    kab: KABUPATEN,
+    kec: DESA_UTAMA,
+    lat: -1.487,
+    lng: 104.854,
+    kapasitas: 120,
+    pengungsi: 98,
   },
   {
-    name: "Posko Undaan Kudus",
-    kab: "Kudus",
-    kec: "Undaan",
-    lat: -6.82,
-    lng: 110.85,
-    kapasitas: 400,
-    pengungsi: 380,
+    name: "Posko Sungai Lokan",
+    kab: KABUPATEN,
+    kec: "Sungai Lokan",
+    lat: -1.473,
+    lng: 104.841,
+    kapasitas: 80,
+    pengungsi: 72,
   },
   {
-    name: "Posko Tlogowungu",
-    kab: "Pati",
-    kec: "Tlogowungu",
-    lat: -6.77,
-    lng: 111.05,
-    kapasitas: 350,
-    pengungsi: 290,
+    name: "Posko Sungai Cemara",
+    kab: KABUPATEN,
+    kec: "Sungai Cemara",
+    lat: -1.499,
+    lng: 104.869,
+    kapasitas: 70,
+    pengungsi: 58,
   },
   {
-    name: "Posko Mranggen",
-    kab: "Demak",
-    kec: "Mranggen",
-    lat: -6.88,
-    lng: 110.66,
-    kapasitas: 450,
-    pengungsi: 410,
+    name: "Posko Labuhan Pering",
+    kab: KABUPATEN,
+    kec: "Labuhan Pering",
+    lat: -1.466,
+    lng: 104.876,
+    kapasitas: 60,
+    pengungsi: 48,
   },
   {
-    name: "Posko Tahunan",
-    kab: "Jepara",
-    kec: "Tahunan",
-    lat: -6.61,
-    lng: 110.69,
-    kapasitas: 300,
-    pengungsi: 250,
+    name: "Posko Air Hitam Laut",
+    kab: KABUPATEN,
+    kec: "Air Hitam Laut",
+    lat: -1.506,
+    lng: 104.831,
+    kapasitas: 55,
+    pengungsi: 42,
   },
   {
-    name: "Posko Purwodadi",
-    kab: "Grobogan",
-    kec: "Purwodadi",
-    lat: -7.16,
-    lng: 110.93,
-    kapasitas: 380,
-    pengungsi: 320,
-  },
-  {
-    name: "Posko Bonang",
-    kab: "Demak",
-    kec: "Bonang",
-    lat: -6.93,
-    lng: 110.58,
-    kapasitas: 280,
-    pengungsi: 210,
-  },
-  {
-    name: "Posko Margoyoso",
-    kab: "Pati",
-    kec: "Margoyoso",
-    lat: -6.74,
-    lng: 111.02,
-    kapasitas: 320,
-    pengungsi: 280,
+    name: "Posko Kecamatan Sadu",
+    kab: KABUPATEN,
+    kec: "Sungai Lokan",
+    lat: -1.47,
+    lng: 104.838,
+    kapasitas: 100,
+    pengungsi: 65,
   },
 ].map((p, i) => ({
   id: `posko-${i}`,
@@ -375,19 +431,46 @@ const poskoMarkers: MapMarker[] = [
 }));
 
 const jaringanMarkers: MapMarker[] = [
-  { name: "BTS Demak Utara", kab: "Demak", lat: -6.87, lng: 110.63, status: "critical" as const },
-  { name: "Fiber Kudus", kab: "Kudus", lat: -6.8, lng: 110.84, status: "warning" as const },
-  { name: "BTS Pati Timur", kab: "Pati", lat: -6.75, lng: 111.06, status: "warning" as const },
-  { name: "Tower Jepara", kab: "Jepara", lat: -6.59, lng: 110.66, status: "normal" as const },
-  { name: "BTS Grobogan", kab: "Grobogan", lat: -7.15, lng: 110.91, status: "normal" as const },
   {
-    name: "Fiber Demak Selatan",
-    kab: "Demak",
-    lat: -6.9,
-    lng: 110.65,
+    name: "BTS Remau Baku Tuo",
+    kab: KABUPATEN,
+    kec: DESA_UTAMA,
+    lat: -1.483,
+    lng: 104.857,
     status: "critical" as const,
   },
-  { name: "BTS Kudus Barat", kab: "Kudus", lat: -6.81, lng: 110.82, status: "normal" as const },
+  {
+    name: "Fiber Sungai Lokan",
+    kab: KABUPATEN,
+    kec: "Sungai Lokan",
+    lat: -1.474,
+    lng: 104.843,
+    status: "warning" as const,
+  },
+  {
+    name: "BTS Sungai Cemara",
+    kab: KABUPATEN,
+    kec: "Sungai Cemara",
+    lat: -1.496,
+    lng: 104.866,
+    status: "warning" as const,
+  },
+  {
+    name: "Tower Labuhan Pering",
+    kab: KABUPATEN,
+    kec: "Labuhan Pering",
+    lat: -1.464,
+    lng: 104.874,
+    status: "normal" as const,
+  },
+  {
+    name: "BTS Air Hitam Laut",
+    kab: KABUPATEN,
+    kec: "Air Hitam Laut",
+    lat: -1.504,
+    lng: 104.832,
+    status: "normal" as const,
+  },
 ].map((j, i) => ({
   id: `jaringan-${i}`,
   type: "jaringan" as const,
@@ -401,6 +484,29 @@ export const allMarkers: MapMarker[] = [
   ...jaringanMarkers,
 ];
 
+export function desaToFilterSlug(desa: string): string {
+  return desa.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function filterMarkers(
+  markers: MapMarker[],
+  opts: { type?: string; kab?: string },
+): MapMarker[] {
+  let result = markers;
+  if (opts.type && opts.type !== "all") {
+    result = result.filter((m) => m.type === opts.type);
+  }
+  if (opts.kab && opts.kab !== "all") {
+    const slug = opts.kab.toLowerCase();
+    result = result.filter(
+      (m) =>
+        m.kec?.toLowerCase().replace(/\s+/g, "-") === slug ||
+        m.kab.toLowerCase().replace(/\s+/g, "-") === slug,
+    );
+  }
+  return result;
+}
+
 export function getMarkerColor(marker: MapMarker): string {
   if (marker.type === "wilayah" && marker.dampak) return DAMPAK_COLOR[marker.dampak];
   if (marker.type === "jaringan" && marker.status) {
@@ -413,22 +519,8 @@ export function getMarkerColor(marker: MapMarker): string {
   return "#64748b";
 }
 
-export function filterMarkers(
-  markers: MapMarker[],
-  opts: { type?: string; kab?: string },
-): MapMarker[] {
-  let result = markers;
-  if (opts.type && opts.type !== "all") {
-    result = result.filter((m) => m.type === opts.type);
-  }
-  if (opts.kab && opts.kab !== "all") {
-    const kabName = opts.kab.charAt(0).toUpperCase() + opts.kab.slice(1).toLowerCase();
-    result = result.filter((m) => m.kab.toLowerCase() === kabName.toLowerCase());
-  }
-  return result;
-}
-
 export function formatNumber(n: number): string {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(2)} Jt`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)} Rb`;
   return n.toLocaleString("id-ID");
 }
