@@ -26,14 +26,14 @@ Buka [http://localhost:3000](http://localhost:3000). Dashboard: [http://localhos
 
 ## Skrip
 
-| Perintah | Keterangan |
-|----------|------------|
-| `npm run dev` | Server pengembangan |
-| `npm run build` | Build produksi |
-| `npm run start` | Jalankan build produksi |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | Pemeriksaan TypeScript |
-| `npm run format` | Format Prettier |
+| Perintah            | Keterangan              |
+| ------------------- | ----------------------- |
+| `npm run dev`       | Server pengembangan     |
+| `npm run build`     | Build produksi          |
+| `npm run start`     | Jalankan build produksi |
+| `npm run lint`      | ESLint                  |
+| `npm run typecheck` | Pemeriksaan TypeScript  |
+| `npm run format`    | Format Prettier         |
 
 ## Deploy ke Vercel
 

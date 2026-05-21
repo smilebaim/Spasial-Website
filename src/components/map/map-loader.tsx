@@ -2,10 +2,10 @@
 
 import dynamic from "next/dynamic";
 import type { MapMarker } from "@/lib/data/dummy";
-import type { MapTileStyle } from "./leaflet-map";
+import type { MapTileStyle } from "@/components/map/map-types";
 import { MapPin } from "lucide-react";
 
-const LeafletMap = dynamic(() => import("./leaflet-map").then((m) => m.LeafletMap), {
+const LeafletMap = dynamic(() => import("@/components/map/leaflet-map"), {
   ssr: false,
   loading: () => (
     <div className="h-full min-h-[400px] w-full flex items-center justify-center bg-muted/30 rounded-lg">

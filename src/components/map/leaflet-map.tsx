@@ -1,17 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
-import {
-  getMarkerColor,
-  MAP_CENTER,
-  MAP_DEFAULT_ZOOM,
-  type MapMarker,
-} from "@/lib/data/dummy";
+import { getMarkerColor, MAP_CENTER, MAP_DEFAULT_ZOOM, type MapMarker } from "@/lib/data/dummy";
+import type { MapTileStyle } from "@/components/map/map-types";
 import "leaflet/dist/leaflet.css";
-
-export type MapTileStyle = "street" | "satellite";
 
 const TILE_CONFIG: Record<
   MapTileStyle,
@@ -19,8 +13,7 @@ const TILE_CONFIG: Record<
 > = {
   street: {
     url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   },
   satellite: {
     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
@@ -70,7 +63,7 @@ interface LeafletMapProps {
   zoomControl?: boolean;
 }
 
-export function LeafletMap({
+function LeafletMap({
   markers = [],
   className = "h-full min-h-[400px] w-full",
   center = MAP_CENTER,
@@ -83,15 +76,26 @@ export function LeafletMap({
   tileStyle = "street",
   zoomControl = true,
 }: LeafletMapProps) {
+  const [mounted, setMounted] = useState(false);
   const tiles = TILE_CONFIG[tileStyle];
+
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
     L.Icon.Default.mergeOptions({
       iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
       iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
       shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
     });
-  }, []);
+  }, [mounted]);
+
+  if (!mounted) {
+    return <div className={`relative ${className}`} aria-hidden />;
+  }
 
   return (
     <div className={`relative ${className}`}>
@@ -106,11 +110,7 @@ export function LeafletMap({
       >
         <TileLayer attribution={tiles.attribution} url={tiles.url} />
         {tiles.labels && (
-          <TileLayer
-            attribution={tiles.labels.attribution}
-            url={tiles.labels.url}
-            opacity={0.85}
-          />
+          <TileLayer attribution={tiles.labels.attribution} url={tiles.labels.url} opacity={0.85} />
         )}
         <MapResizer />
         {markers.map((m) => (
@@ -153,3 +153,6 @@ export function LeafletMap({
     </div>
   );
 }
+
+export default LeafletMap;
+export { LeafletMap };
